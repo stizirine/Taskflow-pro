@@ -28,11 +28,16 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# IDE
+# IDE & agents
 .idea
 .vscode
 *.swp
 *.swo
+.agent
+.agents
+.cursor
+.claude
+.cagent
 
 # OS
 .DS_Store
