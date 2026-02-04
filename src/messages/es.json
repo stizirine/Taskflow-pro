@@ -35,7 +35,12 @@
     "loginSuccess": "Inicio de sesión exitoso",
     "registerSuccess": "Registro exitoso",
     "invalidCredentials": "Correo o contraseña incorrectos",
-    "authError": "Error de autenticación"
+    "authError": "Error de autenticación",
+    "forgotPasswordTitle": "Contraseña olvidada",
+    "forgotPasswordDescription": "Introduce tu email para recibir un enlace de restablecimiento.",
+    "sendResetLink": "Enviar enlace",
+    "backToLogin": "Volver al inicio de sesión",
+    "resetEmailSent": "Si esta cuenta existe, se ha enviado un correo de restablecimiento."
   },
   "dashboard": {
     "title": "Panel de control",

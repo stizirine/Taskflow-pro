@@ -54,6 +54,7 @@ export function ProjectModal() {
     },
   })
 
+  // eslint-disable-next-line react-hooks/incompatible-library -- watch() react-hook-form, usage contrôlé
   const watchColor = watch('color')
   const watchIcon = watch('icon')
 

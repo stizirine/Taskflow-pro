@@ -35,7 +35,12 @@
     "loginSuccess": "Login successful",
     "registerSuccess": "Registration successful",
     "invalidCredentials": "Invalid email or password",
-    "authError": "Authentication error"
+    "authError": "Authentication error",
+    "forgotPasswordTitle": "Forgot password",
+    "forgotPasswordDescription": "Enter your email to receive a reset link.",
+    "sendResetLink": "Send reset link",
+    "backToLogin": "Back to login",
+    "resetEmailSent": "If this account exists, a reset email has been sent."
   },
   "dashboard": {
     "title": "Dashboard",

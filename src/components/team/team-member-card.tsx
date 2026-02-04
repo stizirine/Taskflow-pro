@@ -43,7 +43,7 @@ const roleColors: Record<ProjectRole, string> = {
 
 export function TeamMemberCard({
   member,
-  isOwner: _isOwner,
+  isOwner: _isOwner, // eslint-disable-line @typescript-eslint/no-unused-vars -- réservé pour badge owner
   canManage,
   onRoleChange,
   onRemove,

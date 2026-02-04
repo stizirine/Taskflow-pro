@@ -3,7 +3,8 @@ import type { IAuthService } from '../interfaces'
 import type { AuthCredentials, RegisterData, ServiceResponse } from '../types'
 
 export class AuthApiService implements IAuthService {
-  async login(_credentials: AuthCredentials): Promise<ServiceResponse<User>> {
+  async login(credentials: AuthCredentials): Promise<ServiceResponse<User>> {
+    void credentials // interface IAuthService, implémentation via NextAuth signIn
     // TODO: Implémenter avec NextAuth
     throw new Error('Not implemented - use NextAuth signIn')
   }

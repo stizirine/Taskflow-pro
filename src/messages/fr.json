@@ -35,7 +35,12 @@
     "loginSuccess": "Connexion réussie",
     "registerSuccess": "Inscription réussie",
     "invalidCredentials": "Email ou mot de passe incorrect",
-    "authError": "Erreur d'authentification"
+    "authError": "Erreur d'authentification",
+    "forgotPasswordTitle": "Mot de passe oublié",
+    "forgotPasswordDescription": "Entrez votre email pour recevoir un lien de réinitialisation.",
+    "sendResetLink": "Envoyer le lien",
+    "backToLogin": "Retour à la connexion",
+    "resetEmailSent": "Si ce compte existe, un email de réinitialisation a été envoyé."
   },
   "dashboard": {
     "title": "Tableau de bord",

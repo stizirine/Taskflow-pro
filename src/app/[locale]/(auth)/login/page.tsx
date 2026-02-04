@@ -29,7 +29,6 @@ export default function LoginPage() {
   const [isGitHubLoading, setIsGitHubLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
-  const _callbackUrl = searchParams.get('callbackUrl')
   const authError = searchParams.get('error')
 
   const LogoIcon = NavIcons.dashboard

@@ -59,6 +59,7 @@ export function InviteMemberModal() {
     },
   })
 
+  // eslint-disable-next-line react-hooks/incompatible-library -- watch() de react-hook-form utilisé de façon contrôlée
   const watchRole = watch('role')
 
   const onSubmit = async (data: InviteFormData) => {

@@ -15,5 +15,10 @@ export const registerSchema = z.object({
   path: ['confirmPassword'],
 })
 
+export const forgotPasswordSchema = z.object({
+  email: z.string().email('Email invalide'),
+})
+
 export type LoginFormData = z.infer<typeof loginSchema>
 export type RegisterFormData = z.infer<typeof registerSchema>
+export type ForgotPasswordFormData = z.infer<typeof forgotPasswordSchema>
