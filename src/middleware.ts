@@ -33,13 +33,12 @@ function isPublicRoute(pathname: string): boolean {
 export default async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl
 
-  // 1. Ignorer les assets et fichiers statiques
+  // 1. Ignorer les assets, fichiers statiques et toutes les routes API (pas de locale)
   if (
     pathname.startsWith('/_next') ||
     pathname.startsWith('/static') ||
     pathname.includes('.') ||
-    pathname.startsWith('/api/auth') ||
-    pathname.startsWith('/api/health')
+    pathname.startsWith('/api')
   ) {
     return NextResponse.next()
   }
