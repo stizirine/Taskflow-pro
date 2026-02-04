@@ -24,8 +24,10 @@ export function useAuth() {
       throw new Error('Email ou mot de passe incorrect')
     }
 
-    router.push(`/${locale}/dashboard`)
-    router.refresh()
+    if (result?.ok) {
+      // Force un refresh complet pour que le middleware réévalue
+      window.location.href = `/${locale}/dashboard`
+    }
   }
 
   const loginWithGoogle = async () => {

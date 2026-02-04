@@ -1,8 +1,7 @@
-import { defaultLocale, locales } from '@/i18n/config'
 import createIntlMiddleware from 'next-intl/middleware'
-import { getToken } from 'next-auth/jwt'
 import type { NextRequest } from 'next/server'
 import { NextResponse } from 'next/server'
+import { defaultLocale, locales } from './i18n/config'
 
 const intlMiddleware = createIntlMiddleware({
   locales,
@@ -11,41 +10,53 @@ const intlMiddleware = createIntlMiddleware({
 })
 
 // Routes publiques (pas besoin d'authentification)
-const publicRoutes = ['/login', '/register', '/forgot-password']
+const publicPatterns = [
+  '/login',
+  '/register',
+  '/forgot-password',
+  '/api/auth',
+  '/api/health',
+]
 
-// Routes d'API à ignorer
-const ignoredRoutes = ['/api', '/_next', '/static', '/favicon.ico']
+// Vérifie si c'est une route publique
+function isPublicRoute(pathname: string): boolean {
+  // Retirer la locale du pathname
+  const pathnameWithoutLocale = pathname.replace(/^\/(fr|en|es)/, '') || '/'
+  
+  return publicPatterns.some((pattern) => 
+    pathnameWithoutLocale === pattern || 
+    pathnameWithoutLocale.startsWith(`${pattern}/`) ||
+    pathnameWithoutLocale.startsWith(pattern)
+  )
+}
 
 export default async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl
 
-  // Ignorer les routes API et assets
-  if (ignoredRoutes.some((route) => pathname.startsWith(route))) {
+  // 1. Ignorer les assets et fichiers statiques
+  if (
+    pathname.startsWith('/_next') ||
+    pathname.startsWith('/static') ||
+    pathname.includes('.') ||
+    pathname.startsWith('/api/auth') ||
+    pathname.startsWith('/api/health')
+  ) {
     return NextResponse.next()
   }
 
-  // Appliquer le middleware i18n
+  // 2. Appliquer le middleware i18n
   const response = intlMiddleware(request)
 
-  // Extraire le pathname sans la locale
-  const pathnameWithoutLocale = pathname.replace(/^\/(fr|en|es)/, '') || '/'
-
-  // Vérifier si c'est une route publique
-  const isPublicRoute = publicRoutes.some((route) =>
-    pathnameWithoutLocale === route || pathnameWithoutLocale.startsWith(route)
-  )
-
-  // Si route publique, pas besoin de vérifier l'auth
-  if (isPublicRoute) {
+  // 3. Si route publique, pas de vérification auth
+  if (isPublicRoute(pathname)) {
     return response
   }
 
-  // Vérifier l'authentification via le JWT (sans charger Prisma/pg, compatible Edge)
-  const token = await getToken({
-    req: request,
-    secret: process.env.AUTH_SECRET,
-  })
+  // 4. Vérifier le token de session (côté serveur uniquement)
+  const token = request.cookies.get('authjs.session-token')?.value ||
+                request.cookies.get('__Secure-authjs.session-token')?.value
 
+  // 5. Si pas de token et route protégée, rediriger vers login
   if (!token) {
     const locale = pathname.split('/')[1] || defaultLocale
     const loginUrl = new URL(`/${locale}/login`, request.url)
@@ -57,5 +68,5 @@ export default async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/((?!api|_next|static|.*\\..*).*)'],
+  matcher: ['/((?!_next|static|.*\\..*).*)'],
 }

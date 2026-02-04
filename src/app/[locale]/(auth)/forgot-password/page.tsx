@@ -5,19 +5,25 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { NavIcons, UIIcons } from '@/lib/icons'
-import { forgotPasswordSchema, type ForgotPasswordFormData } from '@/lib/validations/auth'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useLocale, useTranslations } from 'next-intl'
 import Link from 'next/link'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
+import { z } from 'zod'
+
+const forgotPasswordSchema = z.object({
+  email: z.string().email('Email invalide'),
+})
+
+type ForgotPasswordFormData = z.infer<typeof forgotPasswordSchema>
 
 export default function ForgotPasswordPage() {
   const t = useTranslations()
   const locale = useLocale()
   const [isLoading, setIsLoading] = useState(false)
-  const [submitted, setSubmitted] = useState(false)
+  const [isSubmitted, setIsSubmitted] = useState(false)
 
   const LogoIcon = NavIcons.dashboard
   const LoaderIcon = UIIcons.loader
@@ -31,36 +37,37 @@ export default function ForgotPasswordPage() {
   })
 
   const onSubmit = async (data: ForgotPasswordFormData) => {
-    void data // utilisé pour signature useForm, envoi email non implémenté
     setIsLoading(true)
-    try {
-      // TODO: appeler l'API de réinitialisation (ex. Resend, SendGrid, action serveur)
-      await new Promise((r) => setTimeout(r, 800))
-      setSubmitted(true)
-      toast.success(t('auth.resetEmailSent'))
-    } catch {
-      toast.error(t('errors.somethingWentWrong'))
-    } finally {
-      setIsLoading(false)
-    }
+
+    // Simuler l'envoi d'email
+    await new Promise((resolve) => setTimeout(resolve, 1500))
+
+    setIsLoading(false)
+    setIsSubmitted(true)
+    toast.success(t('auth.resetEmailSent'))
   }
 
-  if (submitted) {
+  if (isSubmitted) {
     return (
       <Card className="w-full max-w-md">
         <CardHeader className="text-center">
           <div className="flex justify-center mb-4">
-            <div className="p-3 rounded-full bg-primary/10">
-              <LogoIcon className="h-8 w-8 text-primary" />
+            <div className="p-3 rounded-full bg-green-100 dark:bg-green-900">
+              <UIIcons.check className="h-8 w-8 text-green-600 dark:text-green-400" />
             </div>
           </div>
-          <CardTitle className="text-2xl">{t('auth.forgotPasswordTitle')}</CardTitle>
-          <CardDescription>{t('auth.resetEmailSent')}</CardDescription>
+          <CardTitle className="text-2xl">{t('auth.checkYourEmail')}</CardTitle>
+          <CardDescription>
+            {t('auth.resetEmailSentDescription')}
+          </CardDescription>
         </CardHeader>
         <CardFooter className="justify-center">
-          <Button asChild variant="outline" className="w-full">
-            <Link href={`/${locale}/login`}>{t('auth.backToLogin')}</Link>
-          </Button>
+          <Link
+            href={`/${locale}/login`}
+            className="text-primary hover:underline font-medium"
+          >
+            {t('auth.backToLogin')}
+          </Link>
         </CardFooter>
       </Card>
     )
@@ -74,8 +81,10 @@ export default function ForgotPasswordPage() {
             <LogoIcon className="h-8 w-8 text-primary" />
           </div>
         </div>
-        <CardTitle className="text-2xl">{t('auth.forgotPasswordTitle')}</CardTitle>
-        <CardDescription>{t('auth.forgotPasswordDescription')}</CardDescription>
+        <CardTitle className="text-2xl">{t('auth.forgotPassword')}</CardTitle>
+        <CardDescription>
+          {t('auth.forgotPasswordDescription')}
+        </CardDescription>
       </CardHeader>
 
       <CardContent>
@@ -104,7 +113,7 @@ export default function ForgotPasswordPage() {
       <CardFooter className="justify-center">
         <Link
           href={`/${locale}/login`}
-          className="text-sm text-primary hover:underline font-medium"
+          className="text-sm text-muted-foreground hover:text-primary"
         >
           {t('auth.backToLogin')}
         </Link>
