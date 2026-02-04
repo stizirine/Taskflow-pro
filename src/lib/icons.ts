@@ -186,6 +186,7 @@ export const ProjectIcons = {
   home: Home,
 } as const
 
+
 export type ProjectIconName = keyof typeof ProjectIcons
 
 // ============================================
@@ -198,6 +199,7 @@ export const MiscIcons = {
   attachment: Paperclip,
   alert: AlertCircle,
 } as const
+
 
 // ============================================
 // HELPER FUNCTION

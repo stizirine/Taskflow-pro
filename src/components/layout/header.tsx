@@ -5,8 +5,8 @@ import { NavIcons, UIIcons } from '@/lib/icons'
 import { cn } from '@/lib/utils'
 import { useUIStore } from '@/stores'
 import { useTranslations } from 'next-intl'
+import { CommandTrigger } from './command-trigger'
 import { LanguageSwitcher } from './language-switcher'
-import { SearchBar } from './search-bar'
 import { ThemeSwitcher } from './theme-switcher'
 import { UserMenu } from './user-menu'
 
@@ -35,7 +35,6 @@ export function Header({ className }: HeaderProps) {
           size="icon"
           onClick={toggleSidebarCollapsed}
           className="shrink-0"
-          title={sidebarCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
         >
           <MenuIcon className="h-5 w-5" />
         </Button>
@@ -48,13 +47,13 @@ export function Header({ className }: HeaderProps) {
         </div>
       </div>
 
-      {/* Search - Hidden on mobile */}
-      <div className="flex-1 hidden md:flex md:justify-center">
-        <SearchBar />
+      {/* Command Palette Trigger - Centered */}
+      <div className="flex-1 flex justify-center">
+        <CommandTrigger className="max-w-md" />
       </div>
 
       {/* Right side actions */}
-      <div className="flex items-center gap-2 ml-auto">
+      <div className="flex items-center gap-2">
         <ThemeSwitcher />
         <LanguageSwitcher />
         <UserMenu />

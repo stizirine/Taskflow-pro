@@ -1,4 +1,5 @@
 import '@/app/globals.css'
+import { CommandPalette } from '@/components/command-palette'
 import { ServiceModeIndicator } from '@/components/layout/service-mode-indicator'
 import { AuthProvider } from '@/components/providers/auth-provider'
 import { ModalProvider } from '@/components/providers/modal-provider'
@@ -41,6 +42,7 @@ export default async function LocaleLayout({ children, params }: Props) {
           >
             <NextIntlClientProvider messages={messages}>
               {children}
+              <CommandPalette />
               <ModalProvider />
               <ServiceModeIndicator />
               <Toaster />

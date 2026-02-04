@@ -1,3 +1,4 @@
+export { CommandTrigger } from './command-trigger'
 export { Header } from './header'
 export { LanguageSwitcher } from './language-switcher'
 export { MainLayout } from './main-layout'

@@ -216,6 +216,18 @@
     "debugState": "Debug state",
     "zustandInAction": "Zustand Store in action!"
   },
+  "commandPalette": {
+    "placeholder": "Search or run a command...",
+    "noResults": "No results found.",
+    "quickActions": "Quick Actions",
+    "navigation": "Navigation",
+    "projects": "Projects",
+    "theme": "Theme",
+    "account": "Account",
+    "navigate": "Navigate",
+    "select": "Select",
+    "close": "Close"
+  },
   "errors": {
     "required": "This field is required",
     "invalidEmail": "Invalid email",
